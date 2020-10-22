@@ -7,22 +7,34 @@ public:
     Point() {
         x = 0;
         y = 0;
-        printf("Point()\n");
+        printf("Конструктор Point(). (x = %i; y = %i)\n", x, y);
     }
     Point(int x, int y) {
         this->x = x;
         this->y = y;
-        printf("Point(int x, int y)\n");
+        printf("Конструктор Point(int x, int y). (x = %i; y = %i)\n", x, y);
     }
     Point(const Point &p) {
         x = p.x;
         y = p.y;
-        printf("Point(const Point &p)\n");
+        printf("Конструктор Point(const Point &p). (x = %i; y = %i)\n", x, y);
     }
     ~Point() {
-        printf("x = %i; y = %i; ~Point()\n",x , y);
+        printf("Деструткор ~Point(). (x = %i; y = %i) \n",x , y);
+    }
+    void reset();
+    void move(int a, int b) {
+        x += a;
+        y += b;
+        printf("Функция move. (x = %i; y = %i)\n", x, y);
     }
 };
+
+void Point::reset() {
+    x = 0;
+    y = 0;
+    printf("Функция reset. (x = %i; y = %i)\n", x, y);
+}
 
 class Line{
 public:    
@@ -57,8 +69,6 @@ public:
     }
 };
 
-
-
 int main()
 {
     setlocale(0, "");
@@ -67,6 +77,8 @@ int main()
         Point p1;
         Point p2(x, y);
         Point p3(p2);
+        p3.reset();
+        p3.move(5, 6);
     }
     cout << "\n\n\n\n";
     {
