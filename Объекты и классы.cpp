@@ -24,11 +24,60 @@ public:
     }
 };
 
+class Line{
+public:    
+    Point *p1;
+    Point *p2;
+
+    Line() {
+        p1 = new Point;
+        p2 = new Point;
+        printf("Line()\n");
+    }
+    Line(int x1, int y1, int x2, int y2) {
+        p1 = new Point(x1,y1);
+        p2 = new Point(x2,y2);
+        printf("Line(int x1, int y1, int x2, int y2)\n");
+    }
+    Line(const Line &l){
+        p1 = new Point(*(l.p1));
+        p2 = new Point(*(l.p2));
+        printf("Line(const Line &l)\n");
+    }
+    ~Line() {
+        delete p1;
+        delete p2;
+        printf("~Line\n");
+    }
+    double get_length(const Line &l) {
+        int a = (l.p2->x - l.p1->x) * (l.p2->x - l.p1->x);
+        int b = (l.p2->y - l.p1->y) * (l.p2->y - l.p1->y);
+        double L = sqrt(a+b);
+        return L; 
+    }
+};
+
+
+
 int main()
 {
-    int x = 1, y = 2;
-    Point p1;
-    Point p2(x, y);
-    Point p3(p2);
+    setlocale(0, "");
+    {
+        int x = 1, y = 2;
+        Point p1;
+        Point p2(x, y);
+        Point p3(p2);
+    }
+    cout << "\n\n\n\n";
+    {
+        int x1 = 1, y1 = 2, x2 = 3, y2 = 4;
+        Line* l = new Line;
+        Line *l1 = new Line(x1, y1, x2, y2);
+        Line *l2 = new Line(*l1);
+        cout << "Длина прямой l1 = " << l1->get_length(*l1) << endl;
+        delete l;
+        delete l1;
+        delete l2;
+    }
     return 0;
 }
